@@ -233,7 +233,7 @@ export default function RadioStationList() {
 
   return (
     <div className="flex min-h-screen flex-col p-4 bg-gradient-to-b from-slate-50 to-slate-100 dark:from-slate-950 dark:to-slate-900">
-      <div className="container mx-auto max-w-4xl">
+      <div className="container mx-auto max-w-2xl">
         <h1 className="text-3xl font-bold text-center my-8">
           SF Radio Stations
         </h1>
@@ -287,7 +287,7 @@ export default function RadioStationList() {
                     >
                       {currentStationId === station.id && isPlaying ? (
                         <Pause className="h-6 w-6" />
-                      ) : preloadingStationId === station.id ? (
+                      ) : currentStationId === station.id ? (
                         <Loader2 className="h-6 w-6 animate-spin" />
                       ) : (
                         <Play className="h-6 w-6" />
@@ -295,44 +295,43 @@ export default function RadioStationList() {
                     </Button>
                   </div>
                 </div>
-                {currentStationId === station.id && isPlaying && (
-                  <div className="px-4 pb-4 pt-0">
-                    <div className="flex items-center space-x-2 bg-muted/50 p-2 rounded-md">
-                      <Button
-                        onClick={toggleMute}
-                        variant="ghost"
-                        size="icon"
-                        className="h-8 w-8"
-                      >
-                        {isMuted ? (
-                          <VolumeX className="h-4 w-4" />
-                        ) : (
-                          <Volume2 className="h-4 w-4" />
-                        )}
-                      </Button>
-                      <Slider
-                        value={[volume]}
-                        min={0}
-                        max={100}
-                        step={1}
-                        onValueChange={(value) => setVolume(value[0])}
-                        className="flex-1"
-                      />
-                      <span className="w-8 text-center text-sm">{volume}%</span>
-                    </div>
-                  </div>
-                )}
               </Card>
             ))}
         </div>
 
-        <div className="mt-8 text-center text-sm text-muted-foreground">
+        <div className="mt-8 text-center text-sm text-muted-foreground justify-center items-center flex flex-col items-center gap-4">
           <p>
             Currently playing:{" "}
             {currentStationId && isPlaying
               ? stations.find((s) => s.id === currentStationId)?.name
               : "No station selected"}
           </p>
+          {isPlaying && (
+            <div className="flex items-center space-x-2  border bg-card/80  shadow-sm  p-2 rounded-md w-full max-w-80">
+              <Button
+                onClick={toggleMute}
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8"
+              >
+                {isMuted ? (
+                  <VolumeX className="h-4 w-4" />
+                ) : (
+                  <Volume2 className="h-4 w-4" />
+                )}
+              </Button>
+
+              <Slider
+                value={[volume]}
+                min={0}
+                max={100}
+                step={1}
+                onValueChange={(value) => setVolume(value[0])}
+                className="flex-1"
+              />
+              <span className="w-8 text-center text-sm">{volume}%</span>
+            </div>
+          )}
         </div>
       </div>
     </div>
