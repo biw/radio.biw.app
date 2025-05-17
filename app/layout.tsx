@@ -7,9 +7,25 @@ const montserrat = Montserrat({
   weight: ["400", "500", "600", "700"],
 });
 
+const SITE_URL = "https://radio.biw.app";
+const SITE_TITLE = "radio.biw.app";
+const SITE_DESCRIPTION = "Listen to San Francisco's radio stations";
+const OG_IMAGE = `${SITE_URL}/og-image-1.jpg`;
+
 export const metadata: Metadata = {
-  title: "radio.biw.app",
-  description: "Listen to local radio stations",
+  title: SITE_TITLE,
+  description: SITE_DESCRIPTION,
+  openGraph: {
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: [OG_IMAGE],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: [OG_IMAGE],
+  },
 };
 
 export default function RootLayout({
