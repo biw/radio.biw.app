@@ -1,0 +1,22 @@
+{
+  "$schema": "https://turborepo.com/schema.json",
+  "tasks": {
+    "dev": {
+      "cache": false,
+      "persistent": true
+    },
+    "lint": {
+      "dependsOn": ["^lint"],
+      "cache": false
+    },
+    "build-native": {
+      "inputs": ["swift-src/**/*", "binding.gyp"],
+      "outputs": ["libbridge.a", "build/**"]
+    },
+    "build-tsup": {
+      "dependsOn": ["^build-native"],
+      "inputs": ["src/**/*"],
+      "outputs": ["dist/**"]
+    }
+  }
+}
